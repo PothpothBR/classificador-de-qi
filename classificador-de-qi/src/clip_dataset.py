@@ -58,7 +58,7 @@ def clipDataset(data: pandas.DataFrame) -> pandas.DataFrame:
     )
 
     # salva o novo dataset
-    data.to_csv("./res/clipped.csv")
+    data.fillna(0).to_csv("./res/clipped.csv")
     
     # agrupa por nome da comida
     data_g = {}

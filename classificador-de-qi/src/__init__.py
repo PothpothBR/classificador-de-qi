@@ -19,7 +19,7 @@ finally:
 class SLP:
     def __init__(self, batch: pandas.DataFrame, mini_batch_size: int, eta: float, bias: float) -> None:
         # shuffle here
-        for _ in range(200):
+        for _ in range(20):
             batch = batch.sample(frac=1).reset_index(drop=True)
         classes = batch.pop("Shrt_Desc").to_list()
         nclass = classes[0]
@@ -30,7 +30,7 @@ class SLP:
         self.bias = bias
         self.nodes = None
         self.errors = numpy.zeros(mini_batch_size)
-        self.weights = numpy.random.random([1, len(batch.columns[1:])+1])
+        self.weights = numpy.random.random([1, len(batch.columns[1:])+1])[0]
         
         print(
 """
@@ -60,8 +60,8 @@ Initialized with:
                     self.weights = self.weights + self.eta*self.errors[entry]*self.nodes
             print("Epoch "+ str(epoch)+ " finalized!", end="\r")
 
-netw = SLP(data, 323, 0.1, 1)
+netw = SLP(data, 323, 0.2, 1)
 
-netw.fit(20000)
+netw.fit(2000)
 
 print(netw.errors)
