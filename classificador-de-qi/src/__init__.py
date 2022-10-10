@@ -58,10 +58,13 @@ Initialized with:
                     out = SLP.binaryStep(numpy.dot(self.weights, self.nodes))
                     self.errors[entry] = self.outs[batch][entry] - out
                     self.weights = self.weights + self.eta*self.errors[entry]*self.nodes
-            print("Epoch "+ str(epoch)+ " finalized!", end="\r")
-
+            er = 0
+            for i in self.errors:
+                if i != 0: er += 1
+            print("Epoch "+ str(epoch)+ " finalized! with "+str(er)+" errors", end="\r")
+            
 netw = SLP(data, 323, 0.2, 1)
 
-netw.fit(2000)
-
+netw.fit(1000)
+print("\n")
 print(netw.errors)
